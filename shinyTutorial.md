@@ -6,4 +6,4 @@ This is a small tutorial for the R package Shiny. Dominik Schwarz and I wrote it
 
 ### What is Shiny and why should I care?
 
-### What is Shiny and why should I care?
+#### My first Shiny app
