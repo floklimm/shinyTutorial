@@ -6,6 +6,10 @@
 # 
 #    http://shiny.rstudio.com/
 #
+# shinyOPIG
+# by
+# Florian Klimm & Dominik Schwarz, 2019
+
 
 library(shiny)
 library(visNetwork)
@@ -23,7 +27,12 @@ shinyUI(fluidPage(
                    "Number of bins:",
                    min = 1,
                    max = 20,
-                   value = 10)
+                   value = 10),
+       sliderInput("nodeSize",
+                   "Node Size:",
+                   min = 0.1,
+                   max = 10,
+                   value = 5)
     ),
     
     # Show a plot of the generated distribution

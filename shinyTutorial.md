@@ -20,6 +20,8 @@ This tutorial will guide you stepwise through the creation of a simple Shiny app
 
 > Any task in this tutorial will be highlighted like this.
 
+If you should run into problems, there is a fully functional app provided.
+
 ### My first Shiny app
 Every Shiny app has the same structure: It consists of one 'ui.R' file and a 'server.ui' file. (In principle both parts of the program can also be in the same file but it is usually recommended to have them separately to avoid confusion.)
 
@@ -173,13 +175,19 @@ visNetwork(nodes, edges, , main = "OPIG's 2019 publication network", height = "5
 
 > Implement these changes in appearance.
 
-Finally, we will make a node's size proportional to it's degree
+Penultimately, we will make a node's size proportional to it's degree
 
 ```
 nodes$size = 5*occurrencesClean
 ```
 
-> Change the nodes' sizes. 
+> Make all nodes' size five-fold their degree with the code above.
+
+For the final task, we do not provide code but you should use the provided tool:
+
+> Create a new input-slider (or alternatively, radio buttons, or a selection box) that allows the user to change the proportionality factor of the node size.
+
+
 
 ### Optional: Publish the application (Internet required)
 Thus far, we run the application on our local machine. The main aim of creating the app, however, is to make it accessible to other scientists. To do this, there are two options:
@@ -194,14 +202,19 @@ The latter is the most user friendly. To share the app as a webpage we need a se
 
 There exists also the possibility to install Shiny Server on one of our own machines/servers and host the application in-house. (This is currently not implemented at the Department of Statistics.)
 
-### (Optional) Some ideas how to improve the app
-
+### (Optional) Some ideas how to extend the app
+- Change the appearance of the network [visNetwork](https://datastorm-open.github.io/visNetwork/). You can, for example, use photos as node-icons.
+- Allow additional inputs in Shiny (e.g., Let the user change the colour of the bar plot).
+- Let the user download the result of your degree-analysis (look up the `downloadButton` function).
+- Allow users to provide their own file with author lists (look up the `fileInput` function).
+- visNetwork allows the definition of `groups`. Use this functionality to change the appearance of all nodes that represent OPIG members.
 
 ## Conclusions
 
 To conclude, Shiny is useful for the following tasks:
 - We can incorporate R code to make an interactive web app.
 - There exists a lot of different functions to create HTML elements that can be used to make an app.
+- The R library allows the creation of interactive network visualisations.
 - We can deploy the application easily to shinyapps.io to make publicly availble.
 
 ## Further Reading

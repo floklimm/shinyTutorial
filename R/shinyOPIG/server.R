@@ -6,12 +6,12 @@
 #
 #    http://shiny.rstudio.com/
 #
+# shinyOPIG
+# by
+# Florian Klimm & Dominik Schwarz, 2019
 
 library(shiny)
 library(visNetwork)
-
-#library(tidyr)
-#library(bib2df)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -76,7 +76,7 @@ shinyServer(function(input, output) {
     nodes$label = names(occurrencesClean)
     
     # make the node's size proportional to their degree
-    nodes$size = 5*occurrencesClean
+    nodes$size = input$nodeSize*occurrencesClean
     
     # do the actual visualistion
     visNetwork(nodes, edges, , main = "OPIG's 2019 publication network", height = "500px") %>%
