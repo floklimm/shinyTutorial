@@ -1,11 +1,11 @@
 # shinyTutorial
-This is a small tutorial for the R package Shiny. Dominik Schwarz and I wrote it for internal usage for the Oxford Protein Informatics Group (OPIG) in 2019.
+This is a small tutorial for the R package Shiny. Dominik Schwarz and I wrote it for internal usage for the Oxford Protein Informatics Group (OPIG) in 2019 but we make it publicly available.
 
 
 ## Tutorial
 
 ### What is Shiny and why should I care?
-Shiny is a RStudio package/library that allows the construction of interactive web pages that call R code. The two reasons I ended up using it for one of my projects was two-fold:
+Shiny is a RStudio package/library that allows the construction of interactive web pages that call R code. The two reasons I ended up using it for one of my research projects was two-fold:
 - Shiny allows the incorporation of R code (which my project was written in), and
 - It was fairly straightforward to build the webtool (in comparison with, for example, Flask in Python or D3 in JavaScript).
 
@@ -20,28 +20,28 @@ This tutorial will guide you stepwise through the creation of a simple Shiny app
 
 > Any task in this tutorial will be highlighted like this.
 
-If you should run into problems, there is a fully functional app provided.
+If you should run into problems, we provide a fully functional app in the `shinyOPIG` folder.
 
 ### My first Shiny app
 Every Shiny app has the same structure: It consists of one 'ui.R' file and a 'server.ui' file. (In principle both parts of the program can also be in the same file but it is usually recommended to have them separately to avoid confusion.)
 
-The `User Interface` (UI) defines a webpage that is shown to the user and is also used by them to give commands or input data to the server. The convenient thing about Shiny is that you don't have to code any HTML yourself, rather it provides you with certain tools that you code in R that generate HTML objects that form the UI. The downside of this approach is that it limits the customizability.
+The `User Interface` (UI) defines a webpage that is shown to the user and is also used by them to give commands or input data to the server. One of Shiny's conveniences is that you don't have to code any HTML yourself, rather it provides you with certain tools that you code in R that generate HTML objects that form the UI. The downside of this approach is that it limits the customizability. (but you can actually include plain HTML code, if necessary)
 
-The `Server` defined all the background computations that your program executes. This can be any type of R commands, which includes external libraries (e.g., BioConductor, Dplyr, ggplot2, ...). As you can execute unix commands from R with the `unix` command, one can also call compiled programs. The scPPIN-online tool, for example, prepares the data in R, writes a text file, executes a C++ program, and reads the output into R.
+The `Server` defines all the background computations that your program executes. This can be any type of R commands, which includes external libraries (e.g., BioConductor, Dplyr, ggplot2, ...). As you can execute unix commands from R with the `system` command, one can also call compiled programs. The mentioned scPPIN-online tool, for example, prepares the data in R, writes a text file, executes a C++ program, and reads the output into R.
 
 Now we will create our first Shiny app: Rstudio allows us to create an example Shiny app under `File > New File > Shiny Web App > ...`.
 
-> Use R Studio to create a new Shiny app. Use a `multiple file app` and name it `shinyOPIG`.
+> Use R Studio to create a new Shiny app. Use a `multiple file app` and name it `shinyOPIG-MYNAMES`.
 
 This creates two files (ui.R and server.R). The default application is an interactive histogram of the `Old Faithful Geyser` data.
 
 > Explore the application by executing it by clicking `Run App`.
 
-The app has a fairly simple structure: The user can specify the number of bins in the histogram with a slider (which is coded in the UI part of the app). The SERVER part does the construction of the actual histogram.  
+The app has a fairly simple structure: The user can specify the number of bins in the histogram with a slider (which is coded in the UI part of the app). The SERVER part does the construction of the actual histogram, and shows it in the UI.  
 
 ### Loading a more interesting data set
 
-The 'Old Faithful Geyser Data' is only a placeholder for other data. Instead, we have a look at the provided text file `opigAuthorList.txt`. It is a semicolon-separated file with each line being the list of authors of one paper that was written by OPIG in 2019. We want to use this data to create a histogram of authorships.
+The 'Old Faithful Geyser Data' is a placeholder the data we are interested in.Have a look at the provided text file `opigAuthorList.txt`. It is a semicolon-separated file with each line being the list of authors of one paper that was written by OPIG in 2019. We want to use this data to create a histogram of authorships.
 
 To load data and count occurrences, we can use the code below:
 
@@ -53,7 +53,7 @@ occurrences<- sort(occurrences,decreasing=TRUE) # sort them
 occurrencesClean <- occurrences[2:length(occurrences)] # we do not take the whitespace author name
 
 ```
-(You might need to set your set your working directory to source file location for the correct loading of the data.)
+
 
 We will have to assign this new data to the `x` vector, which we use in the histogram
 
@@ -61,7 +61,8 @@ We will have to assign this new data to the `x` vector, which we use in the hist
 x <- occurrences[2:length(occurrences)] # we do not take the whitespace author name into account
 ```
 
-> Incorporate the code above into the SERVER script. Execute the Shiny app to check if the new data is plotted
+> Incorporate the code above into the SERVER script. Copy the file `opigAuthorList.txt` into the folder with your Shiny script. Execute the Shiny app to check if the new data is plotted.
+> (You might need to set your working directory to source file location for the correct loading of the data.)
 
 ### Create a more complex UI
 
@@ -170,12 +171,12 @@ and second, we change the network's appearance
 visNetwork(nodes, edges, , main = "OPIG's 2019 publication network", height = "500px") %>%
       visNodes(color = "purple") %>%
       visInteraction(hover = TRUE) %>%
-      visEdges(width=2,smooth=TRUE,color='grey')
+      visEdges(width=2,smooth=TRUE,color="grey")
 ```
 
 > Implement these changes in appearance.
 
-Penultimately, we will make a node's size proportional to it's degree
+Penultimately, we make a node's size proportional to it's degree
 
 ```
 nodes$size = 5*occurrencesClean
@@ -183,14 +184,14 @@ nodes$size = 5*occurrencesClean
 
 > Make all nodes' size five-fold their degree with the code above.
 
-For the final task, we do not provide code but you should use the provided tool:
+For the final task, we do not provide code but you should be able to combine the introduced functions:
 
 > Create a new input-slider (or alternatively, radio buttons, or a selection box) that allows the user to change the proportionality factor of the node size.
 
 
 
 ### Optional: Publish the application (Internet required)
-Thus far, we run the application on our local machine. The main aim of creating the app, however, is to make it accessible to other scientists. To do this, there are two options:
+Thus far, we run the application on our local machine. The main aim for creating the app, however, is to make it accessible to other scientists. To do this, there are two options:
 1. Share the script publicly (e.g., on GitHub) so that other scientists can run it on their machine, or
 2. Share the app as a webpage.
 
@@ -202,7 +203,7 @@ The latter is the most user friendly. To share the app as a webpage we need a se
 
 There exists also the possibility to install Shiny Server on one of our own machines/servers and host the application in-house. (This is currently not implemented at the Department of Statistics.)
 
-### (Optional) Some ideas how to extend the app
+### Optional: Some ideas how to extend the app
 - Change the appearance of the network [visNetwork](https://datastorm-open.github.io/visNetwork/). You can, for example, use photos as node-icons.
 - Allow additional inputs in Shiny (e.g., Let the user change the colour of the bar plot).
 - Let the user download the result of your degree-analysis (look up the `downloadButton` function).
@@ -213,9 +214,9 @@ There exists also the possibility to install Shiny Server on one of our own mach
 
 To conclude, Shiny is useful for the following tasks:
 - We can incorporate R code to make an interactive web app.
-- There exists a lot of different functions to create HTML elements that can be used to make an app.
-- The R library allows the creation of interactive network visualisations.
-- We can deploy the application easily to shinyapps.io to make publicly availble.
+- There exists a lot of different functions to create elements (e.g., sliders, output tables, ...) that can be used to make an app.
+- The R library `visNetwork` allows the creation of interactive network visualisations.
+- We can easily deploy the application to shinyapps.io to make publicly available.
 
 ## Further Reading
 If you are interested in more information, here are some resources for Shiny:
