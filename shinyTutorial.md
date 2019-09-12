@@ -13,7 +13,7 @@ The Shiny app I created is [scPPIN-online](https://floklimm.shinyapps.io/scPPIN-
 
 To get a broader overview about the type of applications one can create with Shiny see this [Gallery](https://shiny.rstudio.com/gallery/).
 
-> Think about what part of your research 
+> Think about how you could make your research accessible with a shiny app.
 
 ### Aim of this tutorial
 This tutorial will guide you stepwise through the creation of a simple Shiny app. You will learn about the structure of a Shiny app and how you can use input and output functions. As an example, we use a small network but the presented tools are also applicable to other data types (e.g., data tables, protein structures, ...).
