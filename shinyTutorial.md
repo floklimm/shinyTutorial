@@ -168,7 +168,7 @@ nodes$label = names(occurrencesClean)
 and second, we change the network's appearance
 
 ```
-visNetwork(nodes, edges, , main = "OPIG's 2019 publication network", height = "500px") %>%
+visNetwork(nodes, edges, main = "OPIG's 2019 publication network", height = "500px") %>%
       visNodes(color = "purple") %>%
       visInteraction(hover = TRUE) %>%
       visEdges(width=2,smooth=TRUE,color="grey")
