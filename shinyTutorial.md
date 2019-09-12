@@ -51,7 +51,6 @@ opigPublication <- read.delim("opigAuthorList.txt", header=FALSE, sep=";",strip.
 occurrences<-table(unlist(opigPublication)) # count the occurrences
 occurrences<- sort(occurrences,decreasing=TRUE) # sort them
 occurrencesClean <- occurrences[2:length(occurrences)] # we do not take the whitespace author name
-
 ```
 
 

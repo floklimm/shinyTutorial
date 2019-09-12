@@ -20,11 +20,11 @@ shinyServer(function(input, output) {
   opigPublication <- read.delim("opigAuthorList.txt", header=FALSE, sep=";",strip.white=TRUE, stringsAsFactors=FALSE)
   occurrences<-table(unlist(opigPublication)) # count the occurances
   occurrences<- sort(occurrences,decreasing=TRUE) # sort them
-  occurrencesClean <- occurences[2:length(occurrences)] # we do not take the whitespace author name
+  occurrencesClean <- occurrences[2:length(occurrences)] # we do not take the whitespace author name
 
-  
+
   output$degreeTable <- renderTable(occurrencesClean)
-  
+
   # here the histogram plotting is happening
   output$distPlot <- renderPlot({
 
@@ -36,13 +36,13 @@ shinyServer(function(input, output) {
     hist(x, breaks = bins, col = 'darkgray', border = 'white')
 
   })
-  
-  # this constructs the network 
+
+  # this constructs the network
   output$network <- renderVisNetwork({
     ## minimal example
     #nodes <- data.frame(id = 1:3)
     #edges <- data.frame(from = c(1,2), to = c(1,3))
-    
+
     # construct egdes from the author lists in an ugly triple for loop
     edgeFrom <- list()
     edgeTo <- list()
@@ -61,30 +61,30 @@ shinyServer(function(input, output) {
               edgeFrom <- c(edgeFrom,authorlistThisPublication[,author1])
               edgeTo <- c(edgeTo,authorlistThisPublication[,author2])
             }
-          
+
           }
         }
       }
     }
-    
-    
+
+
     # Construct node and edge lists
     nodes <- data.frame(id =names(occurrencesClean)) # all authors on OPIG papers
-    edges <- data.frame(from = unlist(edgeFrom), to = unlist(edgeTo)) 
-    
+    edges <- data.frame(from = unlist(edgeFrom), to = unlist(edgeTo))
+
     # use the names as node labels
     nodes$label = names(occurrencesClean)
-    
+
     # make the node's size proportional to their degree
     nodes$size = input$nodeSize*occurrencesClean
-    
+
     # do the actual visualistion
     visNetwork(nodes, edges, , main = "OPIG's 2019 publication network", height = "500px") %>%
       visNodes(color = "purple") %>%
       visInteraction(hover = TRUE) %>%
       visEdges(width=2,smooth=TRUE,color='grey')
   })
-  
-  
+
+
 
 })
