@@ -220,11 +220,11 @@ There exists also the possibility to install Shiny Server on one of our own mach
 
 ## Conclusions
 
-To conclude, Shiny is useful for the following tasks:
+To conclude, we learned how to use Shiny and this is useful because:
 - We can incorporate R code to make an interactive web app.
 - There exists a lot of different functions to create elements (e.g., sliders, output tables, ...) that can be used to make an app.
 - The R library `visNetwork` allows the creation of interactive network visualisations.
-- We can easily deploy the application to shinyapps.io to make publicly available.
+- We can easily deploy the application to shinyapps.io to make it publicly available.
 
 ## Further Reading
 If you are interested in more information, here are some resources for Shiny:
