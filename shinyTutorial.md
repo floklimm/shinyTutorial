@@ -13,7 +13,7 @@ The Shiny app I created is [scPPIN-online](https://floklimm.shinyapps.io/scPPIN-
 
 To get a broader overview about the type of applications one can create with Shiny see this [Gallery](https://shiny.rstudio.com/gallery/).
 
-
+> Think about what part of your research 
 
 ### Aim of this tutorial
 This tutorial will guide you stepwise through the creation of a simple Shiny app. You will learn about the structure of a Shiny app and how you can use input and output functions. As an example, we use a small network but the presented tools are also applicable to other data types (e.g., data tables, protein structures, ...).
@@ -41,27 +41,28 @@ The app has a fairly simple structure: The user can specify the number of bins i
 
 ### Loading a more interesting data set
 
-The 'Old Faithful Geyser Data' is a placeholder the data we are interested in.Have a look at the provided text file `opigAuthorList.txt`. It is a semicolon-separated file with each line being the list of authors of one paper that was written by OPIG in 2019. We want to use this data to create a histogram of authorships.
+The 'Old Faithful Geyser Data' is a placeholder the data we are interested in. Have a look at the provided text file `opigAuthorList.txt`. It is a semicolon-separated file with each line being the list of authors of one paper that was written by OPIG in 2019. We want to use this data to create a histogram of authorships.
+
+> Copy the file `opigAuthorList.txt` into your app's directory.
 
 To load data and count occurrences, we can use the code below:
 
 ```
 # load a list of OPIG authors
-opigPublication <- read.delim("opigAuthorList.txt", header=FALSE, sep=";",strip.white=TRUE)
+opigPublication <- read.delim("opigAuthorList.txt", header=FALSE, sep=";",strip.white=TRUE, stringsAsFactors=FALSE)
 occurrences<-table(unlist(opigPublication)) # count the occurrences
 occurrences<- sort(occurrences,decreasing=TRUE) # sort them
 occurrencesClean <- occurrences[2:length(occurrences)] # we do not take the whitespace author name
-```
 
-
-We will have to assign this new data to the `x` vector, which we use in the histogram
-
-```
 x <- occurrences[2:length(occurrences)] # we do not take the whitespace author name into account
+
 ```
 
-> Incorporate the code above into the SERVER script. Copy the file `opigAuthorList.txt` into the folder with your Shiny script. Execute the Shiny app to check if the new data is plotted.
-> (You might need to set your working directory to source file location for the correct loading of the data.)
+
+> Incorporate the code above into the SERVER script. Copy the file `opigAuthorList.txt` into the folder with your Shiny script.
+> Set your working directory to source file location for the correct loading of the data.
+> Execute the Shiny app to check if the new data is plotted.
+
 
 ### Create a more complex UI
 
@@ -197,6 +198,8 @@ Thus far, we run the application on our local machine. The main aim for creating
 The latter is the most user friendly. To share the app as a webpage we need a server that is publicly available. Shiny provides a free service under [Shinyapps](shinyapps.io) which can be used to share up to five applications. (This is also the service that we used for [scPPIN-online](https://floklimm.shinyapps.io/scPPIN-online/).)
 
 > Sign up to the free tier of shinyapps.io and make your application available.
+
+> Test it yourself.
 
 > Share the link with another group/individual and test each others application. Does it behave as intended?
 

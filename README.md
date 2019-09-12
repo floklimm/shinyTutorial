@@ -3,13 +3,15 @@ In this repository, you find a small tutorial that demonstrates the functionalit
 
 
 ## Software Prerequisites
-- [Rstudio](https://www.rstudio.com/)
+
+- [Rstudio](https://www.rstudio.com/) (version >= 1.1.463)
+- R (version >= 3.5.2)
 - R libraries:
   - [shiny](https://shiny.rstudio.com/)
   - [visNetwork](https://datastorm-open.github.io/visNetwork/)
 - [Atom](https://atom.io/) (recommended for reading markdown files offline; not necessary if internet is available)   
 
-The best way to test whether you have necessary libraries is to execute the file `./R/testLibrariesForShiny.R`. If one of the libraries is missing, the script should install them with the command `install` command (e.g., `install.packages("shiny")`).
+The best way to test whether you have necessary libraries is to execute the file `./R/testLibrariesForShiny.R`. If one of the libraries is missing, the script should install them with the `install` command (e.g., `install.packages("shiny")`).
 
 
 ## Tutorial
