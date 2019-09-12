@@ -32,7 +32,10 @@ shinyUI(fluidPage(
                    "Node Size:",
                    min = 0.1,
                    max = 10,
-                   value = 5)
+                   value = 5),
+       p(''),
+       tagList("This application is part of a Shiny tutorial, which you can find on", a("Github", href="https://github.com/floklimm/shinyTutorial")),
+       p('The tutorial was created by Dominik Schwarz and Florian Klimm of the Oxford Protein Informatics Group.')
     ),
     
     # Show a plot of the generated distribution

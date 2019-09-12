@@ -30,7 +30,7 @@ The `Server` defines all the background computations that your program executes.
 
 Now we will create our first Shiny app: Rstudio allows us to create an example Shiny app under `File > New File > Shiny Web App > ...`.
 
-> Use R Studio to create a new Shiny app. Use a `multiple file app` and name it `shinyOPIG-MYNAMES`.
+> Use R Studio to create a new Shiny app. Use a `multiple file app` and name it `shinyOPIG-OURNAMES`.
 
 This creates two files (ui.R and server.R). The default application is an interactive histogram of the `Old Faithful Geyser` data.
 
@@ -51,16 +51,16 @@ To load data and count occurrences, we can use the code below:
 opigPublication <- read.delim("opigAuthorList.txt", header=FALSE, sep=";",strip.white=TRUE, stringsAsFactors=FALSE)
 occurrences<-table(unlist(opigPublication)) # count the occurrences
 occurrences<- sort(occurrences,decreasing=TRUE) # sort them
-occurrencesClean <- occurrences[2:length(occurrences)] # we do not take the whitespace author name
-
-x <- occurrences[2:length(occurrences)] # we do not take the whitespace author name into account
-
+occurrencesClean <- occurrences[2:length(occurrences)] # we do not take the whitespace author name into account
+# assign this to be used by the histogram function
+x <- occurrencesClean
 ```
 
 
-> Incorporate the code above into the SERVER script. Copy the file `opigAuthorList.txt` into the folder with your Shiny script.
-> Set your working directory to source file location for the correct loading of the data.
-> Execute the Shiny app to check if the new data is plotted.
+> Incorporate the code above into the SERVER script.
+> Change
+> Set your working directory to source file location for the correct loading of the data. (`Session > Set Working Directory > To Source File Location`)
+> Execute the Shiny app to check if a histogram of the new data is shown.
 
 
 ### Create a more complex UI
@@ -81,7 +81,8 @@ mainPanel(
   # use three different tabs
   tabsetPanel(
     tabPanel("Histogram", plotOutput("distPlot")),
-    tabPanel("Network Plot", visNetworkOutput("network")),
+    # the network panel will be activated later
+    # tabPanel("Network Plot", visNetworkOutput("network")),
     tabPanel("Table", tableOutput("degreeTable"))
   )
 )
@@ -89,7 +90,7 @@ mainPanel(
 
 > Incorporate the code above into the UI and explore the new version of the app.
 
-As you see, we now have three tabs, but two of them are empty. The reason for this is that we have not defined the content of the table that will be displayed. To do this, we can use `renderTable`:
+As you see, we now have two tabs, but one of them is empty. The reason for this is that we have not defined the content of the table that will be displayed. To do this, we can use `renderTable`:
 
 ```
 output$degreeTable <- renderTable(occurrencesClean)
@@ -100,6 +101,8 @@ output$degreeTable <- renderTable(occurrencesClean)
 ### Illustrating networks in Shiny
 
 Now we will construct a co-authorship network and visualise it in the second tab. There are multiple network/graph libraries in R. For our purposes, [visNetwork](https://datastorm-open.github.io/visNetwork/) is best because it is fairly easy to incorporate in Shiny.
+
+> Load the library with the `library(visNetwork)` command. Do this in both, the SERVER and the UI file.
 
 First, we construct a simple example network:
 
@@ -113,7 +116,8 @@ output$network <- renderVisNetwork({
  })
 ```
 
-> Visualise your first network with this small example graph. You can zoom in and out and also drag nodes around.
+> Visualise your first network with this small example graph. You can zoom in and out and also drag nodes around. This code needs to be in the SERVER file.
+> You will also need to uncomment the second tab in the UI file.
 
 Constructing a network from the publication data, is a bit more involved:
 
@@ -183,18 +187,19 @@ nodes$size = 5*occurrencesClean
 
 > Make all nodes' size five-fold their degree with the code above.
 
-For the final task, we do not provide code but you should be able to combine the introduced functions:
+For the final task, we do not provide code but you should be able to combine some of the functions that have been introduced in this tutorial. You will need to modify the SERVER and the UI file.
 
-> Create a new input-slider (or alternatively, radio buttons, or a selection box) that allows the user to change the proportionality factor of the node size.
+> Create a new input-slider that allows the user to change the proportionality factor of the node size.
+> Can you move the new slider to the `Network Plot` tab?
 
-
+Congratulations! You have created your first Shiny app that interactively illustrates a co-authorship network!
 
 ### Optional: Publish the application (Internet required)
 Thus far, we run the application on our local machine. The main aim for creating the app, however, is to make it accessible to other scientists. To do this, there are two options:
 1. Share the script publicly (e.g., on GitHub) so that other scientists can run it on their machine, or
 2. Share the app as a webpage.
 
-The latter is the most user friendly. To share the app as a webpage we need a server that is publicly available. Shiny provides a free service under [Shinyapps](shinyapps.io) which can be used to share up to five applications. (This is also the service that we used for [scPPIN-online](https://floklimm.shinyapps.io/scPPIN-online/).)
+The latter is the more user friendly. To share the app as a webpage we need a server that is publicly available. Shiny provides a free service under [Shinyapps](shinyapps.io) which can be used to share up to five applications. (This is also the service that we used for [scPPIN-online](https://floklimm.shinyapps.io/scPPIN-online/).)
 
 > Sign up to the free tier of shinyapps.io and make your application available.
 
@@ -202,9 +207,11 @@ The latter is the most user friendly. To share the app as a webpage we need a se
 
 > Share the link with another group/individual and test each others application. Does it behave as intended?
 
+You can find a version of the app you just created [here](https://floklimm.shinyapps.io/shinyOPIG/).
+
 There exists also the possibility to install Shiny Server on one of our own machines/servers and host the application in-house. (This is currently not implemented at the Department of Statistics.)
 
-### Optional: Some ideas how to extend the app
+### Optional: Some ideas on how to extend the app
 - Change the appearance of the network [visNetwork](https://datastorm-open.github.io/visNetwork/). You can, for example, use photos as node-icons.
 - Allow additional inputs in Shiny (e.g., Let the user change the colour of the bar plot).
 - Let the user download the result of your degree-analysis (look up the `downloadButton` function).

@@ -15,4 +15,4 @@ The best way to test whether you have necessary libraries is to execute the file
 
 
 ## Tutorial
-You can find the actual tutorial [HERE](shinyTutorial.md).
+You can find the actual tutorial [HERE](shinyTutorial.md). The app you will learn to build is available [online](https://floklimm.shinyapps.io/shinyOPIG/).
