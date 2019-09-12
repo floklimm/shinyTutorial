@@ -22,7 +22,7 @@ This tutorial will guide you stepwise through the creation of a simple Shiny app
 If you should run into problems, we provide a fully functional app in the `shinyOPIG` folder.
 
 ### My first Shiny app
-Every Shiny app has the same structure: It consists of one 'ui.R' file and a 'server.ui' file. (In principle both parts of the program can also be in the same file but it is usually recommended to have them separately to avoid confusion.)
+Every Shiny app has the same structure: It consists of one `ui.R` file and a `server.ui` file. (In principle both parts of the program can also be in the same file but it is usually recommended to have them separately to avoid confusion.)
 
 The `User Interface` (UI) defines a webpage that is shown to the user and is also used by them to give commands or input data to the server. One of Shiny's conveniences is that you don't have to code any HTML yourself, rather it provides you with certain tools that you code in R that generate HTML objects that form the UI. The downside of this approach is that it limits the customizability. (but you can actually include plain HTML code, if necessary)
 
