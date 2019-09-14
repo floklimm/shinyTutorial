@@ -9,7 +9,7 @@ In this repository, you find a small tutorial that demonstrates the functionalit
 - R libraries:
   - [shiny](https://shiny.rstudio.com/)
   - [visNetwork](https://datastorm-open.github.io/visNetwork/)
-- [Atom](https://atom.io/) (recommended for reading markdown files offline; not necessary if internet is available)   
+- [Atom](https://atom.io/) (recommended for reading markdown files offline with the package [markdown-preview(https://atom.io/packages/markdown-preview)]; not necessary if internet is available)   
 
 The best way to test whether you have necessary libraries is to execute the file `./R/testLibrariesForShiny.R`. If one of the libraries is missing, the script should install them with the `install` command (e.g., `install.packages("shiny")`).
 
